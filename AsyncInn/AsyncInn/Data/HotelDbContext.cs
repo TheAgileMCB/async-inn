@@ -21,14 +21,14 @@ namespace AsyncInn.Data
                 .HasKey(hotelRoom => new
                 {
                     hotelRoom.HotelID,
-                    hotelRoom.RoomNumber,
+                    hotelRoom.Number,
                 });
 
             modelBuilder.Entity<RoomAmenity>()
                 .HasKey(roomAmenity => new
                 {
                     roomAmenity.RoomID,
-                    roomAmenity.AmenityName,
+                    roomAmenity.AmenityID,
                 });
         }
 
