@@ -76,7 +76,7 @@ namespace AsyncInn.Controllers
 
         // POST: api/Hotel
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostStudent(Hotel hotel)
+        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
             _context.Hotel.Add(hotel);
             await _context.SaveChangesAsync();
