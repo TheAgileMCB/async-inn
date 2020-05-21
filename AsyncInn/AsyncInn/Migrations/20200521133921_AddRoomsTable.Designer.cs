@@ -3,14 +3,16 @@ using AsyncInn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncInn.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200521133921_AddRoomsTable")]
+    partial class AddRoomsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,28 +54,6 @@ namespace AsyncInn.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Hotel");
-                });
-
-            modelBuilder.Entity("AsyncInn.Models.HotelRoom", b =>
-                {
-                    b.Property<int>("HotelID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("PetFriendly")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("RoomID")
-                        .HasColumnType("int");
-
-                    b.HasKey("HotelID", "RoomNumber");
-
-                    b.ToTable("HotelRoom");
                 });
 
             modelBuilder.Entity("AsyncInn.Models.Room", b =>

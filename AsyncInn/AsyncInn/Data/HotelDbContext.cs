@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using.AsyncInn.Models;
 
 namespace AsyncInn.Data
 {
@@ -26,8 +25,9 @@ namespace AsyncInn.Data
                 });
         }
 
-    
+
         public DbSet<Hotel> Hotel { get; set; }
-    public DbSet<Room> Room { get; set; }
-}
+        public DbSet<Room> Room { get; set; }
+        public DbSet<HotelRoom> HotelRoom { get; set; }
+    }
 }
