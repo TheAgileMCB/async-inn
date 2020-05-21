@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using.AsyncInn.Models;
 
 namespace AsyncInn.Data
 {
@@ -14,8 +15,19 @@ namespace AsyncInn.Data
 
         }
 
-        //protected override void OnModelCreation
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
 
-            public DbSet<Hotel> Hotel { get; set; }
-    }
+            modelBuilder.Entity<HotelRoom>()
+                .HasKey(hotelRoom => new
+                {
+                    hotelRoom.HotelID,
+                    hotelRoom.RoomNumber,
+                });
+        }
+
+    
+        public DbSet<Hotel> Hotel { get; set; }
+    public DbSet<Room> Room { get; set; }
+}
 }
