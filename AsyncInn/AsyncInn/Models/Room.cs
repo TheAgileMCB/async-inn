@@ -11,6 +11,19 @@ namespace AsyncInn.Models
         public int ID { get; set; }
         public string Name { get; set; }
         [Required]
-        public int Layout { get; set; }
+        public RoomLayout Layout { get; set; }
+    }
+
+    public enum RoomLayout
+    {
+        OneBedroom,
+        Studio,
+        TwoBedroom,
+        Suite,
+        Villa,
+        SeaSide,
+        MountainView,
+        PrivateIsland
     }
 }
+
