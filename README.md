@@ -11,7 +11,7 @@ This web-based app is super easy to use.
 
 Sample database JSON data: 
 
-![a raw JSON file]()
+![a raw JSON file](https://github.com/mcbarnhart/async-inn/blob/master/AsyncInn/AsyncInn/assets/chrome_gaq8ptqWo7.png)
 
 # License
 This application is licensed under the [MIT License](https://github.com/mcbarnhart/async-inn/blob/master/LICENSE).
