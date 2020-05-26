@@ -59,8 +59,6 @@ namespace AsyncInn.Controllers
             if (!didUpdate)
                 return NotFound();
 
-            
-
             return NoContent();
         }
 
@@ -78,14 +76,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Hotel>> DeleteHotel(int ID)
         {
             var hotel = await hotelService.DeleteHotel(ID);
-            //var hotel = await _context.Hotel.FindAsync(ID);
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            //_context.Hotel.Remove(hotel);
-            //await _context.SaveChangesAsync();
 
             return hotel;
         }

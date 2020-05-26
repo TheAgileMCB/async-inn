@@ -57,8 +57,16 @@ namespace AsyncInn.Data.Services
 
         public async Task<Hotel> DeleteHotel(int ID)
         {
-            
+            var hotel = await _context.Hotel.FindAsync(ID);
+            if (hotel == null)
+            {
+                return null;
+            }
 
+            _context.Hotel.Remove(hotel);
+            await _context.SaveChangesAsync();
+
+            return hotel;
         }
         private bool HotelExists(int ID)
         {
