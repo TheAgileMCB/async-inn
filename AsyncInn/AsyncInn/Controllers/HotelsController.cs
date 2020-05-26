@@ -15,7 +15,6 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        //private readonly HotelDbContext _context;
         IHotelService hotelService;
 
         public HotelsController(IHotelService hotelService)
@@ -28,14 +27,12 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
             return Ok(await hotelService.GetAllHotels());
-           // return await _context.Hotel.ToListAsync();
         }
 
         // GET: api/Hotel/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<Hotel>> GetHotel(int ID)
         {
-            //var hotel = await _context.Hotel.FindAsync(ID);
             var hotel = await hotelService.GetOneHotel(ID);
 
             if (hotel == null)
@@ -50,35 +47,19 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int ID, Hotel hotel)
         {
-            if (id != hotel.ID)
+            if (ID != hotel.ID)
             {
                 return BadRequest();
             }
 
-            bool didUpdate = await hotelService.UpdateHotel(hotel);
+            bool didUpdate = await hotelService.UpdateHotel(ID, hotel);
 
             if (!didUpdate)
                 return NotFound();
 
-            //_context.Entry(hotel).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!HotelExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            
 
             return NoContent();
         }
@@ -88,8 +69,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
             await hotelService.AddHotel(hotel);
-            //_context.Hotel.Add(hotel);
-            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
@@ -111,10 +90,6 @@ namespace AsyncInn.Controllers
             return hotel;
         }
 
-        private bool HotelExists(int ID)
-        {
-            return false;
-            //return _context.Hotel.Any(e => e.ID == ID);
-        }
+        
     }
 }
