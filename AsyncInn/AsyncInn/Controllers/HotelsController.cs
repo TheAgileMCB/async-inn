@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AsyncInn.Data;
+using AsyncInn.Data.Services;
 using AsyncInn.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +27,16 @@ namespace AsyncInn.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
-            return await _context.Hotel.ToListAsync();
+            return Ok(await hotelService.GetAllHotels());
+           // return await _context.Hotel.ToListAsync();
         }
 
         // GET: api/Hotel/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<Hotel>> GetHotel(int ID)
         {
-            var hotel = await _context.Hotel.FindAsync(ID);
+            //var hotel = await _context.Hotel.FindAsync(ID);
+            var hotel = await hotelService.GetOneHotel(ID);
 
             if (hotel == null)
             {
@@ -54,23 +57,28 @@ namespace AsyncInn.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
+            bool didUpdate = await hotelService.UpdateHotel(hotel);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!didUpdate)
+                return NotFound();
+
+            //_context.Entry(hotel).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!HotelExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -79,31 +87,34 @@ namespace AsyncInn.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-            _context.Hotel.Add(hotel);
-            await _context.SaveChangesAsync();
+            await hotelService.AddHotel(hotel);
+            //_context.Hotel.Add(hotel);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
 
         // DELETE: api/Hotel/1
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hotel>> DeleteHotel(int id)
+        public async Task<ActionResult<Hotel>> DeleteHotel(int ID)
         {
-            var hotel = await _context.Hotel.FindAsync(id);
+            var hotel = await hotelService.DeleteHotel(ID);
+            //var hotel = await _context.Hotel.FindAsync(ID);
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            _context.Hotel.Remove(hotel);
-            await _context.SaveChangesAsync();
+            //_context.Hotel.Remove(hotel);
+            //await _context.SaveChangesAsync();
 
             return hotel;
         }
 
-        private bool HotelExists(long id)
+        private bool HotelExists(int ID)
         {
-            return _context.Hotel.Any(e => e.ID == id);
+            return false;
+            //return _context.Hotel.Any(e => e.ID == ID);
         }
     }
 }

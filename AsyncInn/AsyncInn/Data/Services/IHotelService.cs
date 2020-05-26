@@ -8,14 +8,14 @@ namespace AsyncInn.Data.Services
 {
     public interface IHotelService
     {
-        IEnumerable<Hotel> GetAllHotels();
+        Task<IEnumerable<Hotel>> GetAllHotels();
 
-        Hotel GetOneHotel(int ID);
+       Task<Hotel> GetOneHotel(int ID);
 
-        bool UpdateHotel(int ID);
+        Task<bool> UpdateHotel(Hotel hotel);
 
-        Hotel AddHotel(Hotel hotel);
+        Task<Hotel> AddHotel(Hotel hotel);
 
-        Hotel DeleteHotel(int ID);
+        Task<Hotel> DeleteHotel(int ID);
     }
 }
