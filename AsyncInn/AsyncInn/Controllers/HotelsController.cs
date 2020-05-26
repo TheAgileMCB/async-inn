@@ -14,11 +14,12 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+        //private readonly HotelDbContext _context;
+        IHotelService hotelService;
 
-        public HotelsController(HotelDbContext context)
+        public HotelsController(IHotelService hotelService)
         {
-            _context = context;
+            this.hotelService = hotelService;
         }
 
         // GET: api/Hotel
