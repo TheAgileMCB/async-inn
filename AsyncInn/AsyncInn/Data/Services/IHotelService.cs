@@ -12,7 +12,7 @@ namespace AsyncInn.Data.Services
 
        Task<Hotel> GetOneHotel(int ID);
 
-        Task<bool> UpdateHotel(Hotel hotel);
+        Task<bool> UpdateHotel(int ID, Hotel hotel);
 
         Task<Hotel> AddHotel(Hotel hotel);
 
