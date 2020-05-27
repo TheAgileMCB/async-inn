@@ -8,27 +8,35 @@ namespace AsyncInn.Data.Services
 {
     public class AmenityService : IAmenityService
     {
-        public Task<Amenity> AddAmenity(Amenity Amenity)
+        private HotelDbContext _context;
+
+        public AmenityService(HotelDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<Amenity> AddAmenity(Amenity amenity)
+        {
+            _context.Amenity.Add(amenity);
+            await _context.SaveChangesAsync();
+            return amenity;
+        }
+
+        public async Task<Amenity> DeleteAmenity(int ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Amenity> DeleteAmenity(int ID)
+        public async Task<IEnumerable<Amenity>> GetAllAmenities()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Amenity>> GetAllAmenitys()
+        public async Task<Amenity> GetOneAmenity(int ID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Amenity> GetOneAmenity(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateAmenity(int ID, Amenity Amenity)
+        public async Task<bool> UpdateAmenity(int ID, Amenity amenity)
         {
             throw new NotImplementedException();
         }
