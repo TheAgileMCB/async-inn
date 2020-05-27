@@ -8,7 +8,7 @@ namespace AsyncInn.Data.Services
 {
     public interface IAmenityService
     {
-        Task<IEnumerable<Amenity>> GetAllAmenitys();
+        Task<IEnumerable<Amenity>> GetAllAmenities();
 
         Task<Amenity> GetOneAmenity(int ID);
 
