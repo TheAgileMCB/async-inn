@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Data.Services;
 
 namespace AsyncInn.Controllers
 {
@@ -14,25 +15,27 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+        IRoomService roomService;
 
-        public RoomsController(HotelDbContext context)
+        public RoomsController(IRoomService roomService)
         {
-            _context = context;
+            this.roomService = roomService;
         }
 
         // GET: api/Rooms
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-            return await _context.Room.ToListAsync();
+            return Ok(await roomService.GetAllRooms());
+            //return await _context.Room.ToListAsync();
         }
 
         // GET: api/Rooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        [HttpGet("{ID}")]
+        public async Task<ActionResult<Room>> GetRoom(int ID)
         {
-            var room = await _context.Room.FindAsync(id);
+            var room = await roomService.GetOneRoom(ID);
+            //var room = await _context.Room.FindAsync(ID);
 
             if (room == null)
             {
@@ -45,31 +48,36 @@ namespace AsyncInn.Controllers
         // PUT: api/Rooms/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        [HttpPut("{ID}")]
+        public async Task<IActionResult> PutRoom(int ID, Room room)
         {
-            if (id != room.ID)
+            if (ID != room.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(room).State = EntityState.Modified;
+            bool didUpdate = await roomService.UpdateRoom(ID, room);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!didUpdate)
+                return NotFound();
+
+            //_context.Entry(room).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!RoomExists(ID))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -80,31 +88,33 @@ namespace AsyncInn.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            _context.Room.Add(room);
-            await _context.SaveChangesAsync();
+            await roomService.AddRoom(room);
+            //_context.Room.Add(room);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRoom", new { id = room.ID }, room);
         }
 
         // DELETE: api/Rooms/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Room>> DeleteRoom(int id)
+        [HttpDelete("{ID}")]
+        public async Task<ActionResult<Room>> DeleteRoom(int ID)
         {
-            var room = await _context.Room.FindAsync(id);
-            if (room == null)
-            {
-                return NotFound();
-            }
+            var room = await roomService.DeleteRoom(ID);
+            //var room = await _context.Room.FindAsync(ID);
+            //if (room == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Room.Remove(room);
-            await _context.SaveChangesAsync();
+            //_context.Room.Remove(room);
+            //await _context.SaveChangesAsync();
 
             return room;
         }
 
-        private bool RoomExists(int id)
+        private bool RoomExists(int ID)
         {
-            return _context.Room.Any(e => e.ID == id);
+            return _context.Room.Any(e => e.ID == ID);
         }
     }
 }

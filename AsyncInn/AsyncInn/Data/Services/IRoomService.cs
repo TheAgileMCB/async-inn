@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    interface IRoomService
+    public interface IRoomService
     {
-        Task<IEnumerable<Room>> GetAllHotels();
+        Task<IEnumerable<Room>> GetAllRooms();
 
-        Task<Room> GetOneHotel(int ID);
+        Task<Room> GetOneRoom(int ID);
 
-        Task<bool> UpdateHotel(int ID, Room room);
+        Task<bool> UpdateRoom(int ID, Room room);
 
-        Task<Room> AddHotel(Room room);
+        Task<Room> AddRoom(Room room);
 
-        Task<Room> DeleteHotel(int ID);
+        Task<Room> DeleteRoom(int ID);
     }
 }
