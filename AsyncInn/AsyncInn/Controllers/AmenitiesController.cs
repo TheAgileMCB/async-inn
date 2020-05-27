@@ -97,15 +97,7 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Amenity>> DeleteAmenity(int ID)
         {
             var amenity = await amenityService.DeleteAmenity(ID);
-            //var amenity = await _context.Amenity.FindAsync(id);
-            //if (amenity == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //_context.Amenity.Remove(amenity);
-            //await _context.SaveChangesAsync();
-
+           
             return amenity;
         }
 

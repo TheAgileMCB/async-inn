@@ -23,7 +23,16 @@ namespace AsyncInn.Data.Services
 
         public async Task<Amenity> DeleteAmenity(int ID)
         {
-            throw new NotImplementedException();
+            var amenity = await _context.Amenity.FindAsync(ID);
+            if (amenity == null)
+            {
+                return null;
+            }
+
+            _context.Amenity.Remove(amenity);
+            await _context.SaveChangesAsync();
+
+            return amenity;
         }
 
         public async Task<IEnumerable<Amenity>> GetAllAmenities()
