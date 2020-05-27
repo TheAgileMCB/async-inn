@@ -27,7 +27,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
             return Ok(await roomService.GetAllRooms());
-            //return await _context.Room.ToListAsync();
         }
 
         // GET: api/Rooms/5
@@ -35,7 +34,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Room>> GetRoom(int ID)
         {
             var room = await roomService.GetOneRoom(ID);
-            //var room = await _context.Room.FindAsync(ID);
 
             if (room == null)
             {
@@ -61,24 +59,6 @@ namespace AsyncInn.Controllers
             if (!didUpdate)
                 return NotFound();
 
-            //_context.Entry(room).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!RoomExists(ID))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
             return NoContent();
         }
 
@@ -89,8 +69,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
             await roomService.AddRoom(room);
-            //_context.Room.Add(room);
-            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRoom", new { id = room.ID }, room);
         }
@@ -100,21 +78,8 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Room>> DeleteRoom(int ID)
         {
             var room = await roomService.DeleteRoom(ID);
-            //var room = await _context.Room.FindAsync(ID);
-            //if (room == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //_context.Room.Remove(room);
-            //await _context.SaveChangesAsync();
 
             return room;
-        }
-
-        private bool RoomExists(int ID)
-        {
-            return _context.Room.Any(e => e.ID == ID);
         }
     }
 }
