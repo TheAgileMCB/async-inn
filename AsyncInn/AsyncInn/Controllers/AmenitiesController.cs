@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Data.Services;
 
 namespace AsyncInn.Controllers
 {
@@ -14,25 +15,27 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+        IAmenityService amenityService;
 
-        public AmenitiesController(HotelDbContext context)
+        public AmenitiesController(IAmenityService amenityService)
         {
-            _context = context;
+            this.amenityService = amenityService;
         }
 
         // GET: api/Amenities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
-            return await _context.Amenity.ToListAsync();
+            return Ok(await amenityService.GetAllAmenities());
+            //return await _context.Amenity.ToListAsync();
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenity>> GetAmenity(int id)
+        public async Task<ActionResult<Amenity>> GetAmenity(int ID)
         {
-            var amenity = await _context.Amenity.FindAsync(id);
+            var amenity = await amenityService.GetOneAmenity(ID);
+            //var amenity = await _context.Amenity.FindAsync(id);
 
             if (amenity == null)
             {
@@ -46,30 +49,34 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAmenity(int id, Amenity amenity)
+        public async Task<IActionResult> PutAmenity(int ID, Amenity amenity)
         {
-            if (id != amenity.ID)
+            if (ID != amenity.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(amenity).State = EntityState.Modified;
+            bool didUpdate = await amenityService.UpdateAmenity(ID, amenity);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmenityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            if (!didUpdate)
+                return NotFound();
+            //_context.Entry(amenity).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!AmenityExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -80,24 +87,26 @@ namespace AsyncInn.Controllers
         [HttpPost]
         public async Task<ActionResult<Amenity>> PostAmenity(Amenity amenity)
         {
-            _context.Amenity.Add(amenity);
-            await _context.SaveChangesAsync();
+            //_context.Amenity.Add(amenity);
+            //await _context.SaveChangesAsync();
+            await amenityService.AddAmenity(amenity);
 
             return CreatedAtAction("GetAmenity", new { id = amenity.ID }, amenity);
         }
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Amenity>> DeleteAmenity(int id)
+        public async Task<ActionResult<Amenity>> DeleteAmenity(int ID)
         {
-            var amenity = await _context.Amenity.FindAsync(id);
-            if (amenity == null)
-            {
-                return NotFound();
-            }
+            var amenity = await amenityService.DeleteAmenity(ID);
+            //var amenity = await _context.Amenity.FindAsync(id);
+            //if (amenity == null)
+            //{
+            //    return NotFound();
+            //}
 
-            _context.Amenity.Remove(amenity);
-            await _context.SaveChangesAsync();
+            //_context.Amenity.Remove(amenity);
+            //await _context.SaveChangesAsync();
 
             return amenity;
         }
