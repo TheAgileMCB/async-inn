@@ -27,7 +27,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
         {
             return Ok(await amenityService.GetAllAmenities());
-            //return await _context.Amenity.ToListAsync();
         }
 
         // GET: api/Amenities/5

@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,13 @@ namespace AsyncInn.Data.Services
 
         public async Task<IEnumerable<Amenity>> GetAllAmenities()
         {
-            throw new NotImplementedException();
+            return await _context.Amenity.ToListAsync();
         }
 
         public async Task<Amenity> GetOneAmenity(int ID)
         {
-            throw new NotImplementedException();
+            
+
         }
 
         public async Task<bool> UpdateAmenity(int ID, Amenity amenity)
