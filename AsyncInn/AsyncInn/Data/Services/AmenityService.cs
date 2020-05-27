@@ -43,8 +43,7 @@ namespace AsyncInn.Data.Services
 
         public async Task<Amenity> GetOneAmenity(int ID)
         {
-            
-
+            return await _context.Amenity.FindAsync(ID);
         }
 
         public async Task<bool> UpdateAmenity(int ID, Amenity amenity)

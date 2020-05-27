@@ -34,7 +34,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<Amenity>> GetAmenity(int ID)
         {
             var amenity = await amenityService.GetOneAmenity(ID);
-            //var amenity = await _context.Amenity.FindAsync(id);
 
             if (amenity == null)
             {
