@@ -81,5 +81,19 @@ namespace AsyncInn.Controllers
 
             return room;
         }
+
+        [HttpPost("{roomID}/Amenity")]
+        public async Task<ActionResult> AddRoomAmenity(int roomID, Amenity amenity)
+        {
+            await RoomService.AddRoomAmenity(roomID, amenity.amenityID);
+            return NoContent();
+        }
+
+        [HttpDelete("{roomID}/Amenity/{amenityID}")]
+        public async Task<ActionResult> RemoveRoomAmenity(int roomID, amenityID)
+        {
+            await RoomService.RemoveRoomAmenity(roomID, amenityID);
+            return NoContent();
+        }
     }
 }
