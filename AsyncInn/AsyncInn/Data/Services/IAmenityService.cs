@@ -12,9 +12,9 @@ namespace AsyncInn.Data.Services
 
         Task<Amenity> GetOneAmenity(int ID);
 
-        Task<bool> UpdateAmenity(int ID, Amenity Amenity);
+        Task<bool> UpdateAmenity(int ID, Amenity amenity);
 
-        Task<Amenity> AddAmenity(Amenity Amenity);
+        Task<Amenity> AddAmenity(Amenity amenity);
 
         Task<Amenity> DeleteAmenity(int ID);
     }
