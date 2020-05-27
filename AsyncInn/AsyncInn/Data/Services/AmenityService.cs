@@ -48,7 +48,28 @@ namespace AsyncInn.Data.Services
 
         public async Task<bool> UpdateAmenity(int ID, Amenity amenity)
         {
-            throw new NotImplementedException();
+            _context.Entry(amenity).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AmenityExists(ID))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        private bool AmenityExists(int ID)
+        {
+            return _context.Amenity.Any(e => e.ID == ID);
         }
     }
 }

@@ -58,23 +58,6 @@ namespace AsyncInn.Controllers
 
             if (!didUpdate)
                 return NotFound();
-            //_context.Entry(amenity).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!AmenityExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
 
             return NoContent();
         }
@@ -97,11 +80,6 @@ namespace AsyncInn.Controllers
             var amenity = await amenityService.DeleteAmenity(ID);
            
             return amenity;
-        }
-
-        private bool AmenityExists(int id)
-        {
-            return _context.Amenity.Any(e => e.ID == id);
-        }
+        }      
     }
 }
