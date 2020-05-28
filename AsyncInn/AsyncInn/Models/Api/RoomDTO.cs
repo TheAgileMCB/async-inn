@@ -9,8 +9,8 @@ namespace AsyncInn.Models.Api
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public RoomLayout Layout { get; set; }
+        public string Layout { get; set; }
 
-        public RoomAmenity Amenity { get; set; }
+        public List<AmenityDTO> Amenities { get; set; }
     }
 }
