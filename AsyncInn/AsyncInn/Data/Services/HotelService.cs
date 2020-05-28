@@ -30,13 +30,27 @@ namespace AsyncInn.Data.Services
                     Phone = hotel.Phone,
 
                     Rooms = hotel.HotelRoom
-                    .Select(r => new HotelRoomDTO
+                    .Select(hr => new HotelRoomDTO
                     {
-                        HotelID = r.HotelID,
-                        Number = r.Number,
-                        Rate = r.Rate,
-                        PetFriendly = r.PetFriendly,
-                        Room = r.Room
+                        HotelID = hr.HotelID,
+                        Number = hr.Number,
+                        Rate = hr.Rate,
+                        PetFriendly = hr.PetFriendly,
+
+                        Room = new RoomDTO
+                        {
+                            ID = hr.Room.ID,
+                            Name = hr.Room.Name,
+                            Layout = hr.Room.Layout.ToString(),
+
+                            Amenities = hr.Room.Amenities
+                            .Select(a => new AmenityDTO
+                            {
+                                ID = a.ID,
+                                Name = a.Name
+                            })
+                            .ToList()
+                        }
                     })
                     .ToList()
                 })
