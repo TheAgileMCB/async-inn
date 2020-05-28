@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,18 @@ namespace AsyncInn.Data.Services
             return room;
         }
 
-        public async Task<IEnumerable<Room>> GetAllRooms()
+        public async Task<IEnumerable<RoomDTO>> GetAllRooms()
         {
-            return await _context.Room.ToListAsync();
+            var room = await _context.Room
+                .Select(room => new RoomDTO
+                {
+                    ID = room.ID,
+                    Name = room.Name,
+                    Layout = room.Layout
+                })
+                .ToListAsync();
+
+            return room;
         }
 
         public async Task<Room> GetOneRoom(int ID)
