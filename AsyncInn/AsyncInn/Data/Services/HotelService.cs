@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,28 @@ namespace AsyncInn.Data.Services
         {
             _context = context;
         }
-        public async Task<IEnumerable<Hotel>> GetAllHotels()
+        public async Task<IEnumerable<HotelDTO>> GetAllHotels()
         {
-            return await _context.Hotel.ToListAsync();
+            var hotel = await _context.Hotel
+                .Select(hotel => new HotelDTO
+                {
+                    ID = hotel.ID,
+                    Name = hotel.Name,
+                    StreetAddress = hotel.StreetAddress,
+                    City = hotel.City,
+                    State = hotel.State,
+                    Country = hotel.Country,
+                    Phone = hotel.Phone,
+
+                    Rooms = hotel.HotelRoom
+                    .Select(r => new HotelRoomDTO
+                    {
+                        Id
+                    })
+                })
+                .ToListAsync();
+
+            return hotel;
 
         }
         public async Task<Hotel> GetOneHotel(int ID)
