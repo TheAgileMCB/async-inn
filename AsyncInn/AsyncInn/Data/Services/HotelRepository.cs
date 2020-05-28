@@ -97,7 +97,7 @@ namespace AsyncInn.Data.Services
                     })
                     .ToList()
                 })
-                .FindAsync(ID);
+                .FirstOrDefaultAsync(hotel => hotel.ID == ID);
 
         }
 
