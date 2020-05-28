@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    public interface IRoomService
+    public interface IRoomRepository
     {
         Task<IEnumerable<RoomDTO>> GetAllRooms();
 
