@@ -40,16 +40,24 @@ namespace AsyncInn.Data.Services
 
         public async Task<IEnumerable<RoomDTO>> GetAllRooms()
         {
-            var room = await _context.Room
+            var rooms = await _context.Room
                 .Select(room => new RoomDTO
                 {
                     ID = room.ID,
                     Name = room.Name,
-                    Layout = room.Layout
+                    Layout = room.Layout.ToString(),
+
+                    Amenities = room.Amenities
+                            .Select(a => new AmenityDTO
+                            {
+                                ID = a.ID,
+                                Name = a.Name
+                            })
+                            .ToList()
                 })
                 .ToListAsync();
 
-            return room;
+            return rooms;
         }
 
         public async Task<Room> GetOneRoom(int ID)
