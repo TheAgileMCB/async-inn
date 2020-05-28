@@ -11,6 +11,7 @@ namespace AsyncInn.Models.Api
         public int Number { get; set; }
         public decimal Rate { get; set; }
         public bool PetFriendly { get; set; }
-        public Room Room { get; set; }
+        public int RoomID { get; set; }
+        public RoomDTO Room { get; set; }
     }
 }
