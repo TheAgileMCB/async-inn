@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    public interface IHotelService
+    public interface IHotelRepository
     {
         Task<IEnumerable<HotelDTO>> GetAllHotels();
 
