@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    public class AmenityRepository : IAmenityService
+    public class AmenityRepository : IAmenityRepository
     {
         private HotelDbContext _context;
 
