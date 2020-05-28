@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace AsyncInn.Data.Services
 {
     public interface IHotelService
     {
-        Task<IEnumerable<Hotel>> GetAllHotels();
+        Task<IEnumerable<HotelDTO>> GetAllHotels();
 
        Task<Hotel> GetOneHotel(int ID);
 
