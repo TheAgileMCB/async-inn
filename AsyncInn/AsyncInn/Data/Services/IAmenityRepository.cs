@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    public interface IAmenityService
+    public interface IAmenityRepository
     {
         Task<IEnumerable<Amenity>> GetAllAmenities();
 
