@@ -32,7 +32,7 @@ namespace AsyncInn.Controllers
         [HttpGet("{Room.Number}")]
         public async Task<ActionResult<HotelRoom>> GetHotelRoom(int Number, int HotelID)
         {
-            var hotelRoom = await _context.HotelRoom.FindAsync(id);
+            var hotelRoom = await _context.HotelRoom.FindAsync(Number, HotelID);
 
             if (hotelRoom == null)
             {

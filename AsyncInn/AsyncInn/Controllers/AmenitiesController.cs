@@ -15,9 +15,9 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        IAmenityService amenityService;
+        IAmenityRepository amenityService;
 
-        public AmenitiesController(IAmenityService amenityService)
+        public AmenitiesController(IAmenityRepository amenityService)
         {
             this.amenityService = amenityService;
         }
