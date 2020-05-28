@@ -10,5 +10,7 @@ namespace AsyncInn.Models.Api
         public int ID { get; set; }
         public string Name { get; set; }
         public RoomLayout Layout { get; set; }
+
+        public RoomAmenity Amenity { get; set; }
     }
 }
