@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Data.Services
 {
-    public class RoomService : IRoomService
+    public class RoomRepository : IRoomRepository
     {
         private HotelDbContext _context;
 
-        public RoomService(HotelDbContext context)
+        public RoomRepository(HotelDbContext context)
         {
             _context = context;
         }
