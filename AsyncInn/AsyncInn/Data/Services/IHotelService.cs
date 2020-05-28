@@ -11,7 +11,7 @@ namespace AsyncInn.Data.Services
     {
         Task<IEnumerable<HotelDTO>> GetAllHotels();
 
-       Task<Hotel> GetOneHotel(int ID);
+       Task<HotelDTO> GetOneHotel(int ID);
 
         Task<bool> UpdateHotel(int ID, Hotel hotel);
 
