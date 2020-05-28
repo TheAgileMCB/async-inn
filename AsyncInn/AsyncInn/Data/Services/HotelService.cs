@@ -59,9 +59,45 @@ namespace AsyncInn.Data.Services
             return hotel;
 
         }
-        public async Task<Hotel> GetOneHotel(int ID)
+        public async Task<HotelDTO> GetOneHotel(int ID)
         {
-            return await _context.Hotel.FindAsync(ID);
+            return await _context.Hotel
+                .Select(hotel => new HotelDTO
+                {
+                    ID = hotel.ID,
+                    Name = hotel.Name,
+                    StreetAddress = hotel.StreetAddress,
+                    City = hotel.City,
+                    State = hotel.State,
+                    Country = hotel.Country,
+                    Phone = hotel.Phone,
+
+                    Rooms = hotel.HotelRoom
+                    .Select(hr => new HotelRoomDTO
+                    {
+                        HotelID = hr.HotelID,
+                        Number = hr.Number,
+                        Rate = hr.Rate,
+                        PetFriendly = hr.PetFriendly,
+
+                        Room = new RoomDTO
+                        {
+                            ID = hr.Room.ID,
+                            Name = hr.Room.Name,
+                            Layout = hr.Room.Layout.ToString(),
+
+                            Amenities = hr.Room.Amenities
+                            .Select(a => new AmenityDTO
+                            {
+                                ID = a.ID,
+                                Name = a.Name
+                            })
+                            .ToList()
+                        }
+                    })
+                    .ToList()
+                })
+                .FindAsync(ID);
 
         }
 
