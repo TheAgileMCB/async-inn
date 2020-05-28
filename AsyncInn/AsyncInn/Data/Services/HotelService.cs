@@ -32,8 +32,13 @@ namespace AsyncInn.Data.Services
                     Rooms = hotel.HotelRoom
                     .Select(r => new HotelRoomDTO
                     {
-                        Id
+                        HotelID = r.HotelID,
+                        Number = r.Number,
+                        Rate = r.Rate,
+                        PetFriendly = r.PetFriendly,
+                        Room = r.Room
                     })
+                    .ToList()
                 })
                 .ToListAsync();
 
