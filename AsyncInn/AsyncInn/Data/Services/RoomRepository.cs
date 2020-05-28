@@ -91,5 +91,15 @@ namespace AsyncInn.Data.Services
         {
             return _context.Room.Any(e => e.ID == ID);
         }
+
+        internal static Task AddRoomAmenity(int roomID, object amenityID)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Task RemoveRoomAmenity(int roomID, object amenityID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
