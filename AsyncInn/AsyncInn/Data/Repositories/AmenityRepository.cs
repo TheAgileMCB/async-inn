@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,14 +37,28 @@ namespace AsyncInn.Data.Services
             return amenity;
         }
 
-        public async Task<IEnumerable<Amenity>> GetAllAmenities()
+        public async Task<IEnumerable<AmenityDTO>> GetAllAmenities()
         {
-            return await _context.Amenity.ToListAsync();
+            var amenities = await _context.Amenity
+                .Select(amenity => new AmenityDTO 
+                { 
+                    ID = amenity.ID,
+                    Name = amenity.Name
+                })
+                .ToListAsync();
+
+            return amenities;
         }
 
-        public async Task<Amenity> GetOneAmenity(int ID)
+        public async Task<AmenityDTO> GetOneAmenity(int ID)
         {
-            return await _context.Amenity.FindAsync(ID);
+            return await _context.Amenity
+                .Select(a => new AmenityDTO
+                {
+                    ID = a.ID,
+                    Name = a.Name
+                })
+                .FirstOrDefaultAsync(a => a.ID == ID);
         }
 
         public async Task<bool> UpdateAmenity(int ID, Amenity amenity)
