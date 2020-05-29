@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncInn", "AsyncInn\AsyncInn.csproj", "{9AF2610A-CAAF-4E1F-B5B6-E11324CCC1F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncInn.API", "AsyncInn\AsyncInn.API.csproj", "{9AF2610A-CAAF-4E1F-B5B6-E11324CCC1F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncInn.Web", "AsyncInn.Web\AsyncInn.Web.csproj", "{8589B3A6-BE97-4170-87DB-AF60BB315705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9AF2610A-CAAF-4E1F-B5B6-E11324CCC1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AF2610A-CAAF-4E1F-B5B6-E11324CCC1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AF2610A-CAAF-4E1F-B5B6-E11324CCC1F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8589B3A6-BE97-4170-87DB-AF60BB315705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8589B3A6-BE97-4170-87DB-AF60BB315705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8589B3A6-BE97-4170-87DB-AF60BB315705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8589B3A6-BE97-4170-87DB-AF60BB315705}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

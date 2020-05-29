@@ -101,6 +101,12 @@ namespace AsyncInn.Data.Services
 
         }
 
+        //public async Task<IEnumerable<HotelRoomDTO>> GetHotelRooms(int hotelID)
+        //{
+        //    var rooms = await _context.HotelRooms
+        //        .Where(HotelRepository =>)
+        //}
+
         public async Task<bool> UpdateHotel(int ID, Hotel hotel)
         {
             _context.Entry(hotel).State = EntityState.Modified;

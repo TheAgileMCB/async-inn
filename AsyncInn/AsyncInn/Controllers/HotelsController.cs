@@ -80,7 +80,11 @@ namespace AsyncInn.Controllers
 
             return hotel;
         }
-
-        
+        //[HttpGet("{hotelID}/Rooms")]
+        //public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms(int hotelID)
+        //{
+        //    var rooms = await HotelRepository.GetHotelRooms(hotelID);
+        //    return rooms;
+        //}
     }
 }

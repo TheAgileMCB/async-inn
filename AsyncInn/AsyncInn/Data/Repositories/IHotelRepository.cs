@@ -18,5 +18,7 @@ namespace AsyncInn.Data.Services
         Task<Hotel> AddHotel(Hotel hotel);
 
         Task<Hotel> DeleteHotel(int ID);
+
+        //Task<IEnumerable<HotelRoomDTO>> GetHotelRooms(int hotelID);
     }
 }
