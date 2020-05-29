@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AsyncInn.Web.Controllers
 {
-    public class HotelController : Controller
+    public class HotelsController : Controller
     {
         // GET: HotelController
         public ActionResult Index()
