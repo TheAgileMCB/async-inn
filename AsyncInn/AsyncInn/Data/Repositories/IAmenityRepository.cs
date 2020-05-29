@@ -1,4 +1,5 @@
 ﻿using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace AsyncInn.Data.Services
 {
     public interface IAmenityRepository
     {
-        Task<IEnumerable<Amenity>> GetAllAmenities();
+        Task<IEnumerable<AmenityDTO>> GetAllAmenities();
 
-        Task<Amenity> GetOneAmenity(int ID);
+        Task<AmenityDTO> GetOneAmenity(int ID);
 
         Task<bool> UpdateAmenity(int ID, Amenity amenity);
 
