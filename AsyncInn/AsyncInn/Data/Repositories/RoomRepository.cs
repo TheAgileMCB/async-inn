@@ -49,10 +49,10 @@ namespace AsyncInn.Data.Services
                     Layout = room.Layout.ToString(),
 
                     Amenities = room.Amenities
-                            .Select(a => new AmenityDTO
+                            .Select(ra => new AmenityDTO
                             {
-                                ID = a.ID,
-                                Name = a.Name
+                                ID = ra.Amenity.ID,
+                                Name = ra.Amenity.Name
                             })
                             .ToList()
                 })
@@ -71,10 +71,10 @@ namespace AsyncInn.Data.Services
                     Layout = room.Layout.ToString(),
 
                     Amenities = room.Amenities
-                            .Select(a => new AmenityDTO
+                            .Select(ra => new AmenityDTO
                             {
-                                ID = a.ID,
-                                Name = a.Name
+                                ID = ra.Amenity.ID,
+                                Name = ra.Amenity.Name
                             })
                             .ToList()
                 })
