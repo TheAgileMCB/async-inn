@@ -60,9 +60,26 @@ namespace AsyncInn.Data.Services
             return rooms;
         }
 
-        public async Task<Room> GetOneRoom(int ID)
+        public async Task<RoomDTO> GetOneRoom(int ID)
         {
-            return await _context.Room.FindAsync(ID);
+            var room = await _context.Room
+                .Select(room => new RoomDTO
+                {
+                    ID = room.ID,
+                    Name = room.Name,
+                    Layout = room.Layout.ToString(),
+
+                    Amenities = room.Amenities
+                            .Select(a => new AmenityDTO
+                            {
+                                ID = a.ID,
+                                Name = a.Name
+                            })
+                            .ToList()
+                })
+                .FirstOrDefaultAsync(hotel => hotel.ID == ID);
+
+            return room;
         }
 
         public async Task<bool> UpdateRoom(int ID, Room room)

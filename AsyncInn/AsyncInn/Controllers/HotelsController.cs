@@ -23,14 +23,14 @@ namespace AsyncInn.Controllers
             this.hotelRepository = hotelRepository;
         }
 
-        // GET: api/Hotel
+        // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
             return Ok(await hotelRepository.GetAllHotels());
         }
 
-        // GET: api/Hotel/5
+        // GET: api/Hotels/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<HotelDTO>> GetHotel(int ID)
         {
