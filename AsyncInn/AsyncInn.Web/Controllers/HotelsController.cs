@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncInn.Web.Models;
+using AsyncInn.Web.Models.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,28 +11,35 @@ namespace AsyncInn.Web.Controllers
 {
     public class HotelsController : Controller
     {
-        // GET: HotelController
-        public ActionResult Index()
+        private readonly IHotelService hotelService;
+        public HotelsController(IHotelService hotelService)
         {
-            return View();
+            this.hotelService = hotelService;
+        }
+        // GET: Hotels
+        public async Task<ActionResult> Index()
+        {
+            var hotels = await hotelService.GetAll();
+            return View(hotels.OrderBy(h => h.Name));
         }
 
-        // GET: HotelController/Details/5
-        public ActionResult Details(int id)
+        // GET: Hotels/Details/5
+        public async Task<ActionResult> DetailsAsync(int id)
         {
-            return View();
+            var hotel = await hotelService.GetOne(id);
+            return View(hotel);
         }
 
-        // GET: HotelController/Create
+        // GET: Hotels/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: HotelController/Create
+        // POST: Hotels/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Hotel hotel)
         {
             try
             {
@@ -42,13 +51,13 @@ namespace AsyncInn.Web.Controllers
             }
         }
 
-        // GET: HotelController/Edit/5
+        // GET: Hotels/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: HotelController/Edit/5
+        // POST: Hotels/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -63,13 +72,13 @@ namespace AsyncInn.Web.Controllers
             }
         }
 
-        // GET: HotelController/Delete/5
+        // GET: Hotels/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: HotelController/Delete/5
+        // POST: Hotels/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
