@@ -1,6 +1,7 @@
 ﻿using AsyncInn.Models;
 using AsyncInn.Models.Api;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,14 +110,29 @@ namespace AsyncInn.Data.Services
             return _context.Room.Any(e => e.ID == ID);
         }
 
-        internal static Task AddRoomAmenity(int roomID, object amenityID)
+        public async Task AddAmenityToRoom(int roomID, int amenityID)
         {
-            throw new NotImplementedException();
+            var roomAmenity = new RoomAmenity
+            {
+                AmenityID = amenityID,
+                RoomID = roomID
+            };
+            _context.RoomAmenity.Add(roomAmenity);
+                await _context.SaveChangesAsync();
         }
 
-        internal static Task RemoveRoomAmenity(int roomID, object amenityID)
+        public async Task RemoveAmenityFromRoom(int roomID, int amenityID)
         {
-            throw new NotImplementedException();
+            var roomAmenity = await _context.RoomAmenity
+                .Where(ra => ra.AmenityID == amenityID)
+                .Where(ra => ra.RoomID == roomID)
+                .FirstOrDefaultAsync();
+
+            if (roomAmenity != null)
+            {
+                _context.RoomAmenity.Remove(roomAmenity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

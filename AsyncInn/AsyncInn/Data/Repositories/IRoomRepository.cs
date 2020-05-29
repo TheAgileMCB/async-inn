@@ -18,5 +18,9 @@ namespace AsyncInn.Data.Services
         Task<Room> AddRoom(Room room);
 
         Task<Room> DeleteRoom(int ID);
+        Task AddAmenityToRoom(int roomID, int amenityID);
+
+        Task RemoveAmenityFromRoom(int roomID, int amenityID);
+
     }
 }
