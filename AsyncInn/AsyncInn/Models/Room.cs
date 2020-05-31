@@ -17,7 +17,6 @@ namespace AsyncInn.Models
 
         // navigational properties
         public List<RoomAmenity> Amenities { get; set; }
-        public HotelRoom HotelRoom { get; set; }
     }
 
     public enum RoomLayout
