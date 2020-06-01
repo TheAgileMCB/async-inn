@@ -39,10 +39,12 @@ namespace AsyncInn.Web.Controllers
         // POST: Hotels/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Hotel hotel)
+        public async Task<ActionResult> Create(Hotel hotel)
         {
             try
             {
+                await hotelService.Create(hotel);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

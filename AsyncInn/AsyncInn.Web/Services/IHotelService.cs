@@ -9,5 +9,6 @@ namespace AsyncInn.Web.Models.Services
     {
         Task<List<Hotel>> GetAll();
         Task<Hotel> GetOne(int id);
+        Task<Hotel> Create(Hotel hotel);
     }
 }
