@@ -11,10 +11,12 @@ namespace AsyncInn.Web
 {
     public class HttpHotelService : IHotelService
     {
-        private static readonly HttpClient client = new HttpClient
+        private readonly HttpClient client;
+
+        public HttpHotelService(HttpClient client)
         {
-            BaseAddress = new System.Uri("https://localhost:5001/api/"),
-        };
+            this.client = client;
+        }
         public async Task<List<Hotel>> GetAll()
         {
             var responseStream = await client.GetStreamAsync("Hotels");
