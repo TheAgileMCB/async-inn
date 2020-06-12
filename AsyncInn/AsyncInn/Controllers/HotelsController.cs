@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AsyncInn.Data;
 using AsyncInn.Data.Services;
 using AsyncInn.Models;
+using AsyncInn.Models.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,25 +16,25 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        IHotelService hotelService;
+        IHotelRepository hotelRepository;
 
-        public HotelsController(IHotelService hotelService)
+        public HotelsController(IHotelRepository hotelRepository)
         {
-            this.hotelService = hotelService;
+            this.hotelRepository = hotelRepository;
         }
 
-        // GET: api/Hotel
+        // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotel()
         {
-            return Ok(await hotelService.GetAllHotels());
+            return Ok(await hotelRepository.GetAllHotels());
         }
 
-        // GET: api/Hotel/5
+        // GET: api/Hotels/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<ActionResult<Hotel>> GetHotel(int ID)
+        public async Task<ActionResult<HotelDTO>> GetHotel(int ID)
         {
-            var hotel = await hotelService.GetOneHotel(ID);
+            HotelDTO hotel = await hotelRepository.GetOneHotel(ID);
 
             if (hotel == null)
             {
@@ -54,7 +55,7 @@ namespace AsyncInn.Controllers
                 return BadRequest();
             }
 
-            bool didUpdate = await hotelService.UpdateHotel(ID, hotel);
+            bool didUpdate = await hotelRepository.UpdateHotel(ID, hotel);
 
             if (!didUpdate)
                 return NotFound();
@@ -66,7 +67,7 @@ namespace AsyncInn.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-            await hotelService.AddHotel(hotel);
+            await hotelRepository.AddHotel(hotel);
 
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
@@ -75,11 +76,15 @@ namespace AsyncInn.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hotel>> DeleteHotel(int ID)
         {
-            var hotel = await hotelService.DeleteHotel(ID);
+            var hotel = await hotelRepository.DeleteHotel(ID);
 
             return hotel;
         }
-
-        
+        //[HttpGet("{hotelID}/Rooms")]
+        //public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRooms(int hotelID)
+        //{
+        //    var rooms = await HotelRepository.GetHotelRooms(hotelID);
+        //    return rooms;
+        //}
     }
 }

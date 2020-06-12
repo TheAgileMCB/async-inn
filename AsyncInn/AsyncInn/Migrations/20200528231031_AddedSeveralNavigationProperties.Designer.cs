@@ -4,14 +4,16 @@ using AsyncInn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AsyncInn.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200528231031_AddedSeveralNavigationProperties")]
+    partial class AddedSeveralNavigationProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,12 @@ namespace AsyncInn.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoomID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("RoomID");
 
                     b.ToTable("Amenity");
                 });
@@ -129,6 +136,13 @@ namespace AsyncInn.Migrations
                     b.ToTable("RoomAmenity");
                 });
 
+            modelBuilder.Entity("AsyncInn.Models.Amenity", b =>
+                {
+                    b.HasOne("AsyncInn.Models.Room", null)
+                        .WithMany("Amenities")
+                        .HasForeignKey("RoomID");
+                });
+
             modelBuilder.Entity("AsyncInn.Models.HotelRoom", b =>
                 {
                     b.HasOne("AsyncInn.Models.Hotel", "Hotel")
@@ -151,7 +165,7 @@ namespace AsyncInn.Migrations
                         .IsRequired();
 
                     b.HasOne("AsyncInn.Models.Room", "Room")
-                        .WithMany("Amenities")
+                        .WithMany()
                         .HasForeignKey("RoomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

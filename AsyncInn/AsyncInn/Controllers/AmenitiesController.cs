@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Data.Services;
+using AsyncInn.Models.Api;
 
 namespace AsyncInn.Controllers
 {
@@ -15,23 +16,23 @@ namespace AsyncInn.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        IAmenityService amenityService;
+        IAmenityRepository amenityService;
 
-        public AmenitiesController(IAmenityService amenityService)
+        public AmenitiesController(IAmenityRepository amenityService)
         {
             this.amenityService = amenityService;
         }
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenity>>> GetAmenity()
+        public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenity()
         {
             return Ok(await amenityService.GetAllAmenities());
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenity>> GetAmenity(int ID)
+        public async Task<ActionResult<AmenityDTO>> GetAmenity(int ID)
         {
             var amenity = await amenityService.GetOneAmenity(ID);
 

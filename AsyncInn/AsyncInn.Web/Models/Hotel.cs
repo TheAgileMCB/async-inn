@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace AsyncInn.Models
+namespace AsyncInn.Web.Models
 {
     public class Hotel
     {
+        [JsonPropertyName("id")]
         public int ID { get; set; }
-        [Required]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [Required]
+        [Display(Name = "Street Address")]
+        [JsonPropertyName("streetAddress")]
         public string StreetAddress { get; set; }
-        [Required]
+        [JsonPropertyName("city")]
         public string City { get; set; }
-        [Required]
+        [JsonPropertyName("state")]
         public string State { get; set; }
-        [Required]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
-        [Required]
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
-
-        public List<HotelRoom> HotelRoom { get; set; }
+        public List<HotelRoomSummary> Rooms { get; set; }
     }
 }

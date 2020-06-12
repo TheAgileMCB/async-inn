@@ -13,6 +13,10 @@ namespace AsyncInn.Models
         public string Name { get; set; }
         [Required]
         public RoomLayout Layout { get; set; }
+
+
+        // navigational properties
+        public List<RoomAmenity> Amenities { get; set; }
     }
 
     public enum RoomLayout

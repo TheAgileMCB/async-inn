@@ -10,7 +10,7 @@ using AsyncInn.Models;
 
 namespace AsyncInn.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Hotels/{HotelID}/Rooms")]
     [ApiController]
     public class HotelRoomsController : ControllerBase
     {
@@ -29,10 +29,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: api/HotelRooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int id)
+        [HttpGet("{Room.Number}")]
+        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int Number, int HotelID)
         {
-            var hotelRoom = await _context.HotelRoom.FindAsync(id);
+            var hotelRoom = await _context.HotelRoom.FindAsync(Number, HotelID);
 
             if (hotelRoom == null)
             {
